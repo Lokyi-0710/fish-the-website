@@ -1,0 +1,105 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e9ecef;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+h1 {
+    color:#0056b3;
+    margin-top: -100px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    font-family: "Sigmar", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+canvas {
+    background-color: #f4f4f4;
+    display: block;
+    margin-bottom: -100px;
+    border: 5px solid rgba(7, 122, 244, 0.541);
+    border-radius: 10px;
+}
+#startButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    /* text-shadow: 2px 2px 5px rgba(7, 122, 244, 0.541); */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+    color:  #0056b3;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+    margin-bottom: 40px;
+}
+#startButton:hover {
+    background-color:#007bff ;
+}
+#message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    color:#0056b3;
+    display: none;
+    text-align: center;
+    /* background-color: rgba(255, 255, 255, 0.9); */
+    background-color: #c2dcf5;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+@keyframes backgroundAnimation {
+    0% { background-color: #e9ecef; }
+    50% { background-color: #fee496; }
+    100% { background-color: #c2dcf5; }
+}
+body {
+    animation: backgroundAnimation 5s infinite;
+}
+
+
+
+/* 新的交互美化 */
+#inputBar {
+    display: flex;
+    justify-content: center;
+    /* margin-bottom: 20px; */
+    /* margin-top: 50px; */
+}
+#websiteInput {
+    padding: 10px;
+    font-size: 14px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: SemiBold 600;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 300px;
+}
+#goButton {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: SemiBold 600;
+    background-color:#0056b3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#goButton:hover {
+    background-color: #007bff;
+}
