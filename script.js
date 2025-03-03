@@ -6,31 +6,30 @@ const websiteInput = document.getElementById("websiteInput");
 const goButton = document.getElementById("goButton");
 
 let gameRunning = false;
-let targetWebsite = "";  // 用于保存用户输入的网址
+let targetWebsite = "";  // Used to save the URL entered by the user
 
-// 游戏前置功能：点击 "Go" 按钮后保存网址并开始游戏
+// Pre-game function: Click the "Go" button to save the URL and start the game
 goButton.addEventListener("click", () => {
     targetWebsite = websiteInput.value;
     if (targetWebsite) {
         document.getElementById("inputBar").style.display = "none";
-        gameContainer.style.display = "block"; // 显示游戏画面
+        gameContainer.style.display = "block"; // Show the game
         startButton.style.display = "block";
     } else {
         alert("Please enter a valid URL!");
     }
 });
 
-// 创建游戏背景、怪物和进度条等类...
-// 以下是简化后的类，保持不变
+// Create game backgrounds, monsters and progress bars...
 class Background { 
     constructor() {
         this.bubbles = [];
         this.fishes = [];
-        // 加载鱼的PNG素材
+        // Fish PNG
         this.fishImage = new Image();
-        this.fishImage.src = 'Fish2.png'; // 替换为鱼的PNG图片路径
+        this.fishImage.src =  'Fish2.png';
         
-        // 初始化气泡
+        // Bubbles
         for (let i = 0; i < 20; i++) {
             this.bubbles.push({
                 x: Math.random() * canvas.width,
@@ -40,37 +39,37 @@ class Background {
             });
         }
 
-        // 初始化鱼
+        // BG small fishes
         for (let i = 0; i < 5; i++) {
             this.fishes.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                size: Math.random() * 30 + 10, // 设置鱼的尺寸
-                speed: Math.random() * 2 + 1 // 设置鱼的游动速度
+                size: Math.random() * 30 + 10, 
+                speed: Math.random() * 2 + 1
             });
         }
     }
 
     update() {
-        // 更新气泡的位置
+        // Bubbles
         this.bubbles.forEach(bubble => {
             bubble.y -= bubble.speed;
             if (bubble.y < 0) bubble.y = canvas.height;
         });
 
-        // 更新鱼的位置
+        // BG small fishes
         this.fishes.forEach(fish => {
             fish.x += fish.speed;
-            if (fish.x > canvas.width) fish.x = -fish.size; // 如果鱼越过右边界，从左边重新出现
+            if (fish.x > canvas.width) fish.x = -fish.size; // If the fish crosses the right boundary, reappear from the left
         });
     }
 
     draw() {
-        // 绘制背景
+        // draw BG
         ctx.fillStyle = "#87CEEB";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // 绘制气泡
+        // draw Bubbles
         ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
         this.bubbles.forEach(bubble => {
             ctx.beginPath();
@@ -78,7 +77,7 @@ class Background {
             ctx.fill();
         });
 
-        // 绘制鱼
+        // draw BG fishes
         if (this.fishImage.complete) {  // 确保图片加载完成后才绘制
             this.fishes.forEach(fish => {
                 // 使用 drawImage 绘制鱼
@@ -107,9 +106,8 @@ class WebsiteMonster {
         this.speed = Math.random() * 1.5 + 0.5;
         this.direction = Math.random() < 0.5 ? -1 : 1;
 
-        // 加载PNG素材
         this.image = new Image();
-        this.image.src = 'Fish1.png'; // 在这里替换成你的PNG图像的路径
+        this.image.src = 'Fish1.png'; 
     }
 
     move() {
@@ -120,34 +118,30 @@ class WebsiteMonster {
     }
 
     draw() {
-        // 确保图像已经加载完成
+        // Make sure the image is loaded
         if (this.image.complete) {
-            ctx.drawImage(this.image, this.x, this.y, this.width, this.height); // 使用PNG素材绘制图像
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height); 
         } else {
-            // 如果图像未加载完成，可以添加占位符或背景色
-            ctx.fillStyle = "#FFD700";  // 原先的填充色
-            ctx.fillRect(this.x, this.y, this.width, this.height); // 仅作为备用图形
+            // If the image is not fully loaded, you can add a placeholder or background color
+            ctx.fillStyle = "#FFD700";  
+            ctx.fillRect(this.x, this.y, this.width, this.height); 
         }
     }
 }
 
-
 class DataDragon {
     constructor() {
-        this.width = 80; // 鱼钩的宽度
-        this.height = 80; // 鱼钩的高度
-        this.x = 50; // 鱼钩的初始水平位置
-        this.y = canvas.height - this.height - 20; // 初始垂直位置
-        this.speed = 0; // 垂直运动速度
+        this.width = 80; 
+        this.height = 80; 
+        this.x = 50; 
+        this.y = canvas.height - this.height - 20;
+        this.speed = 0; 
         this.isMovingUp = false;
-
-        // 加载鱼钩的PNG素材
         this.hookImage = new Image();
-        this.hookImage.src = 'Fishhook.png'; // 替换为你的鱼钩PNG素材路径
+        this.hookImage.src = 'Fishhook.png'; 
     }
 
     move() {
-        // 控制鱼钩的垂直运动
         if (this.isMovingUp) {
             this.speed += 1.5;
         } else {
@@ -165,26 +159,23 @@ class DataDragon {
     }
 
     draw() {
-        // 画鱼线
-        ctx.strokeStyle = "#2c2c2c"; // 设置鱼线的颜色
+        ctx.strokeStyle = "#2c2c2c"; 
         ctx.lineWidth = 3;
         ctx.beginPath();
-        ctx.moveTo(this.x + this.width / 2 - 15, 0); // 鱼线从钩子开始的上方位置
-        ctx.lineTo(this.x + this.width / 2 - 15, this.y); // 鱼线的终点是鱼钩的y坐标
+        ctx.moveTo(this.x + this.width / 2 - 15, 0); 
+        ctx.lineTo(this.x + this.width / 2 - 15, this.y); 
         ctx.stroke();
 
-        // 确保图像已加载
+       
         if (this.hookImage.complete) {
-            // 绘制鱼钩图像
             ctx.drawImage(this.hookImage, this.x, this.y, this.width, this.height);
         } else {
-            // 如果图像未加载，画一个占位符（可以删除）
-            ctx.fillStyle = "#FF4500"; // 占位符颜色
+           
+            ctx.fillStyle = "#FF4500"; 
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
     }
 }
-
 
 class ProgressBar {
     constructor() {
@@ -196,9 +187,9 @@ class ProgressBar {
     }
     update(monster, dragon) {
         if (monster.y > dragon.y && monster.y < dragon.y + dragon.height) {
-            this.progress += 1.5;
+            this.progress += 0.5;
         } else {
-            this.progress -= 0.5;
+            this.progress -= 0.2;
         }
         this.progress = Math.max(0, Math.min(100, this.progress));
     }
@@ -234,7 +225,7 @@ function gameLoop() {
     if (progressBar.progress >= 100) {
         message.style.display = "block";
         setTimeout(() => {
-            window.location.href = targetWebsite;  // 导向用户输入的网址
+            window.location.href = targetWebsite;  // Directs the URL entered by the user
         }, 2000);
         return;
     }
@@ -245,7 +236,7 @@ function gameLoop() {
 window.addEventListener("mousedown", () => { if (gameRunning) dragon.isMovingUp = true; });
 window.addEventListener("mouseup", () => { if (gameRunning) dragon.isMovingUp = false; });
 
-// 开始游戏的操作
+
 startButton.addEventListener("click", () => {
     startButton.style.display = "none";
     gameRunning = true;
@@ -259,7 +250,7 @@ const audio = document.getElementById("bgMusic");
 const inputBar = document.getElementById("inputBar");
 
 inputBar.addEventListener("click", () => {
-    audio.play();  // 用户点击按钮后播放音乐
+    audio.play();  // The user clicks the button and plays the music
 });
 
 

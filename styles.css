@@ -35,9 +35,7 @@ canvas {
     border: 1px solid #ccc;
     background-color: white;
     color:  #0056b3;
-
     cursor: pointer;
-
     transition: background-color 0.3s;
     margin-bottom: 40px;
 }
@@ -69,10 +67,6 @@ canvas {
 body {
     animation: backgroundAnimation 5s infinite;
 }
-
-
-
-/* 新的交互美化 */
 #inputBar {
     display: flex;
     justify-content: center;

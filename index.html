@@ -12,29 +12,27 @@
 <body>
     <h1>Fish the Website</h1>
     
-    <!-- 1 可交互的bar -->
+    <!-- 1 interactive bar -->
     <div id="inputBar">
         <input type="text" id="websiteInput" placeholder="Please enter the URL you want to visit" />
         <button id="goButton">Go</button>
     </div>
 
-    <!-- 游戏开始按钮（最初隐藏） -->
+    <!-- startButton of the game（hidden） -->
     <button id="startButton" style="display: none;">🐟 start game 🐟</button>
 
-    <!-- 游戏画布和消息（最初隐藏） -->
+    <!-- game canvas & message（hidden） -->
     <div id="gameContainer" style="display: none;">
         <canvas id="gameCanvas" width="400" height="600"></canvas>
         <div id="message" style="display: none;">Heading to the website you entered...</div>
     </div>
 
 
-    <!-- BG 星露谷主题曲背景音乐 -->
+    <!-- BG: Stardew Valley theme music -->
 
     <audio id="bgMusic" src="stardew-valley-theme.MP3" loop>
-        您的浏览器不支持音频元素。
+        Your browser does not support the audio element.
     </audio>
-
-
     
     <script src="script.js"></script>
 </body>
